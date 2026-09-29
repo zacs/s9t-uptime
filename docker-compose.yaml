@@ -1,0 +1,7 @@
+services:
+  gatus:
+    image: twinproduction/gatus:latest
+    network_mode: host
+    volumes:
+      - ./config:/config
+      - ./data:/data/
