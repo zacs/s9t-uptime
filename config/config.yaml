@@ -3,7 +3,7 @@
 #   MATTERMOST_WEBHOOK_URL
 
 web:
-  port: 8080
+  port: 8088
 
 ui:
   title: "s9t Status"
