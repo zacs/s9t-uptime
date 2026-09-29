@@ -1,0 +1,330 @@
+# Generated from Uptime Kuma export by kuma_to_gatus.py
+# Secrets come from environment variables. Set before starting Gatus:
+#   MATTERMOST_WEBHOOK_URL
+
+web:
+  port: 8080
+
+ui:
+  title: "s9t Status"
+  header: "s9t Status"
+  default-sort-by: group
+
+storage:
+  type: sqlite
+  path: /data/data.db
+
+alerting:
+  mattermost:
+    webhook-url: "http://192.168.2.127:8065/hooks/dwf7zg1wc3bd98qhxw1wwqkzgy"
+    default-alert:
+      # Kuma had 0 retries, so it alerted on the first failure.
+      # Raise this to 2 or 3 if that turns out to be noisy.
+      failure-threshold: 1
+      success-threshold: 1
+      send-on-resolved: true
+
+endpoints:
+
+  # --- Home Automation ---
+  - name: "Caseta PRO Hub"
+    group: "Home Automation"
+    url: "icmp://192.168.2.88"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "Home Assistant (Local)"
+    group: "Home Automation"
+    url: "http://192.168.2.19:8123"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "Home Assistant (Public)"
+    group: "Home Automation"
+    url: "https://home.s9t.org"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+      - "[CERTIFICATE_EXPIRATION] > 240h"
+    alerts:
+      - type: mattermost
+  - name: "Philips Hue"
+    group: "Home Automation"
+    url: "http://192.168.2.11/api/config"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "SLZB-06 Thread"
+    group: "Home Automation"
+    url: "http://192.168.2.43/ha_info"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "ZBT-2"
+    group: "Home Automation"
+    url: "http://192.168.2.228/ha_info"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "ZWA-2"
+    group: "Home Automation"
+    url: "http://192.168.2.151/ha_info"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "ZwaveJS UI"
+    group: "Home Automation"
+    url: "http://192.168.2.9:8091"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+
+  # --- Network ---
+  - name: "AdGuard (ice1)"
+    group: "Network"
+    url: "http://192.168.2.149"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "AdGuard (ice2)"
+    group: "Network"
+    url: "http://192.168.2.118"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "Unifi Controller"
+    group: "Network"
+    url: "https://192.168.1.10"
+    interval: 60s
+    client:
+      insecure: true
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "Unifi NVR"
+    group: "Network"
+    url: "https://192.168.1.214"
+    interval: 60s
+    client:
+      insecure: true
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "Unifi UXG-PRO"
+    group: "Network"
+    url: "icmp://192.168.1.1"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+
+  # --- Proxmox ---
+  - name: "gibson (Proxmox host)"
+    group: "Proxmox"
+    url: "https://192.168.2.70:8006/"
+    interval: 60s
+    client:
+      insecure: true
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "lucy (Proxmox host)"
+    group: "Proxmox"
+    url: "https://192.168.2.71:8006/"
+    interval: 60s
+    client:
+      insecure: true
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "maas (Proxmox host)"
+    group: "Proxmox"
+    url: "https://192.168.2.30:8006/"
+    interval: 60s
+    client:
+      insecure: true
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "neotek (Proxmox host)"
+    group: "Proxmox"
+    url: "https://192.168.2.191:8006/"
+    interval: 60s
+    client:
+      insecure: true
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "zaibatsu (Proxmox host)"
+    group: "Proxmox"
+    url: "https://192.168.2.23:8006/"
+    interval: 60s
+    client:
+      insecure: true
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+
+  # --- Hosts ---
+  - name: "docker-stateless (VM)"
+    group: "Hosts"
+    url: "icmp://192.168.2.251"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "docker-tars1 (19)"
+    group: "Hosts"
+    url: "icmp://192.168.2.19"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "docker-tars2 (9)"
+    group: "Hosts"
+    url: "icmp://192.168.2.9"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "docker-ups"
+    group: "Hosts"
+    url: "icmp://192.168.2.56"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "gibson (70)"
+    group: "Hosts"
+    url: "icmp://192.168.2.70"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "lucy (71)"
+    group: "Hosts"
+    url: "icmp://192.168.2.71"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "mass (30)"
+    group: "Hosts"
+    url: "icmp://192.168.2.30"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "neotek (191)"
+    group: "Hosts"
+    url: "icmp://192.168.2.191"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "sensenet (73)"
+    group: "Hosts"
+    url: "icmp://192.168.2.73"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+
+  # --- Icecast ---
+  - name: "Icecast Server"
+    group: "Icecast"
+    url: "http://192.168.2.251:8000/status.xsl"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
+  - name: "Icecast: Boys Bedroom"
+    group: "Icecast"
+    url: "http://192.168.2.251:8000/status.xsl"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+      - "[BODY] == pat(*boys*)"
+    alerts:
+      - type: mattermost
+  - name: "Icecast: KEXP"
+    group: "Icecast"
+    url: "http://192.168.2.251:8000/status.xsl"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+      - "[BODY] == pat(*KEXP*)"
+    alerts:
+      - type: mattermost
+  - name: "Icecast: NOAA"
+    group: "Icecast"
+    url: "http://192.168.2.251:8000/status.xsl"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+      - "[BODY] == pat(*NOAA*)"
+    alerts:
+      - type: mattermost
+  - name: "Icecast: Tabletop Game Theory"
+    group: "Icecast"
+    url: "http://192.168.2.251:8000/status.xsl"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+      - "[BODY] == pat(*theory*)"
+    alerts:
+      - type: mattermost
+
+  # --- Internet ---
+  - name: "Google (ping)"
+    group: "Internet"
+    url: "icmp://google.com"
+    interval: 60s
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: mattermost
+  - name: "Microsoft (HTTP)"
+    group: "Internet"
+    url: "https://www.microsoft.com"
+    interval: 60s
+    conditions:
+      - "[STATUS] < 300"
+    alerts:
+      - type: mattermost
