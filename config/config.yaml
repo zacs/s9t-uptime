@@ -8,7 +8,15 @@ web:
 ui:
   title: "s9t Status"
   header: "s9t Status"
+  logo: "https://cdn.s9t.net/s.png"
   default-sort-by: group
+  buttons:
+    - name: "Beszel"
+      link: "http://192.168.2.80:8090/"
+    - name: "Arcane"
+      link: "http://192.168.2.80:3552/dashboard"
+    - name: "Proxmox Datacenter Manager"
+      link: "https://192.168.2.80:8443/"
 
 storage:
   type: sqlite
